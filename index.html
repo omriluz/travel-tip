@@ -14,9 +14,10 @@
         <div class="search-container">
             <form>
                 <input class="location-input" type="search" placeholder="Enter Location">
-                <button class="btn">GO</button>
+                <button onclick="app.onPanTo(event, this)" class="btn">GO</button>
+                <button onclick="app.onDeleteLoc(event)" class="btn">DELETE</button>
             </form>
-            <button class="btn my-location-btn">My Location</button>
+            <button onclick="app.onGetUserPos()" class="btn my-location-btn">My Location</button>
         </div>
     </header>
     <main>
@@ -31,14 +32,15 @@
         </div>
     </main>
     <button onclick="app.onAddMarker()" class="btn-add-marker">Add Marker Speific Location</button>
-    <button onclick="app.onGetUserPos()" class="btn-user-pos">Get User Position</button>
+    <!-- <button onclick="app.onGetUserPos()" class="btn-user-pos">Get User Position</button> -->
     <button onclick="app.onGetLocs()" class="btn-get-locs">Get Locations</button>
-    <button onclick="app.onPanTo()" class="btn-pan">Pan Map to Tokyo</button>
+    <!-- <button onclick="app.onPanTo()" class="btn-pan">Pan Map to Tokyo</button> -->
 
     <p>You are at: <span class="user-pos"></span></p>
     <p>Locations: <span class="locs"></span></p>
 
 
+    <script src="/libs/axios.js"></script>
     <script type="module" src="js/app.controller.js"></script>
 </body>
 

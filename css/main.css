@@ -16,9 +16,8 @@ body {
     justify-content: space-between;
 }
 
-.search-container ::-webkit-input-placeholder {
+.location-input ::-webkit-input-placeholder {
     text-align: center;
-    color: white;
     font-weight: bold;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
@@ -27,6 +26,8 @@ body {
     display: flex;
     align-items: center;
     margin-top: 30px;
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .btn {
