@@ -12,15 +12,17 @@
     <header class="header-container">
         <h1>TravelTip</h1>
         <div class="search-container">
-            <input type="search" placeholder="Enter Location">
-            <button>GO</button>
-            <button>My Location</button>
+            <form>
+                <input class="location-input" type="search" placeholder="Enter Location">
+                <button class="btn">GO</button>
+            </form>
+            <button class="btn my-location-btn">My Location</button>
         </div>
     </header>
     <main>
         <div class="centered-location">
             <h2>Location <span class="current-location"></span></h2>
-            <button>Copy Location</button>
+            <button class="btn">Copy Location</button>
         </div>
         <div class="grid-map-container">
             <div class="weather-today"></div>
