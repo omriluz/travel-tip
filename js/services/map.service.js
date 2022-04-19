@@ -1,24 +1,16 @@
+import { locService } from "./loc.service.js";
+
+
+
 export const mapService = {
     initMap,
     addMarker,
-    panTo
+    panTo,
 }
+
 
 var gMap;
 
-// function initMap(lat = 32.0749831, lng = 34.9120554) {
-//     console.log('InitMap');
-//     return _connectGoogleApi()
-//         .then(() => {
-//             console.log('google available');
-//             gMap = new google.maps.Map(
-//                 document.querySelector('#map'), {
-//                 center: { lat, lng },
-//                 zoom: 15
-//             })
-//             console.log('Map!', gMap);
-//         })
-// }
 function initMap(lat = 32.0749831, lng = 34.9120554) {
 
     return _connectGoogleApi()
@@ -27,29 +19,47 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                 zoom: 4,
                 center: { lat, lng }
             });
-            // Create the initial InfoWindow.
+
             let infoWindow = new google.maps.InfoWindow({
+
                 content: "Click the map to get Lat/Lng!",
                 position: { lat, lng }
+
             });
 
             infoWindow.open(gMap);
-            // Configure the click listener.
+
             gMap.addListener("click", (mapsMouseEvent) => {
-                // Close the current InfoWindow.
+
+
                 infoWindow.close();
-                // Create a new InfoWindow.
                 infoWindow = new google.maps.InfoWindow({
                     position: mapsMouseEvent.latLng,
+
                 });
+                console.log('position', infoWindow)
+
                 infoWindow.setContent(
                     JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+
                 );
+
                 infoWindow.open(gMap);
+                const location = mapsMouseEvent.latLng.toJSON()
+                console.log('location', location)
+                const locationName = prompt('Location name')
+                if (!locationName) return
+
+                locService.addLoc(locationName, location.lat, location.lng)
+
+
             });
 
         })
+
+
 }
+
 
 
 

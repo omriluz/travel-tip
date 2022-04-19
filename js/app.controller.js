@@ -1,20 +1,29 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 
+export const appController = {
+    renderLocations
+}
 window.app = {
     onInit,
     onAddMarker,
     onPanTo,
     onGetLocs,
-    onGetUserPos
+    onGetUserPos,
+    onRemoveLocation
 }
+
 
 function onInit() {
     mapService.initMap()
         .then(() => {
             console.log('Map is ready');
+
         })
         .catch((err) => console.log('Error: cannot init map', err));
+
+    locService.getLocs()
+        .then(renderLocations)
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -37,6 +46,29 @@ function onGetLocs() {
             document.querySelector('.locs').innerText = JSON.stringify(locs)
         })
 }
+
+function renderLocations(locations) {
+
+    console.log('locations', locations)
+
+    const elLoc = document.querySelector('.location-table')
+    const strHTML = locations.map(
+        (location) => `
+      <h2 class="saved-list" onclick='onCurrLocation('${location.id}')'>
+      ${location.name} <button onclick="app.onRemoveLocation('${location.id}')">X</button>
+      </h2>
+      `
+    )
+    elLoc.innerHTML = strHTML.join('')
+}
+
+function onRemoveLocation(locationId) {
+    locService.removeLocation(locationId)
+    locService.getLocs()
+        .then(renderLocations)
+}
+
+
 
 function onGetUserPos() {
     getPosition()
