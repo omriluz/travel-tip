@@ -1,11 +1,13 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 
-window.onload = onInit;
-window.onAddMarker = onAddMarker;
-window.onPanTo = onPanTo;
-window.onGetLocs = onGetLocs;
-window.onGetUserPos = onGetUserPos;
+window.app = {
+    onInit,
+    onAddMarker,
+    onPanTo,
+    onGetLocs,
+    onGetUserPos
+}
 
 function onInit() {
     mapService.initMap()
@@ -47,6 +49,7 @@ function onGetUserPos() {
             console.log('err!!!', err);
         })
 }
+
 function onPanTo() {
     console.log('Panning the Map');
     mapService.panTo(35.6895, 139.6917);
