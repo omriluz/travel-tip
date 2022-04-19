@@ -6,7 +6,8 @@ window.app = {
     onAddMarker,
     onPanTo,
     onGetLocs,
-    onGetUserPos
+    onGetUserPos,
+    onDeleteLoc
 }
 
 function onInit() {
@@ -38,19 +39,28 @@ function onGetLocs() {
         })
 }
 
+
 function onGetUserPos() {
     getPosition()
         .then(pos => {
-            console.log('User position is:', pos.coords);
-            document.querySelector('.user-pos').innerText =
-                `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
+            mapService.panTo(pos.coords.latitude, pos.coords.longitude)
         })
         .catch(err => {
             console.log('err!!!', err);
         })
 }
 
-function onPanTo() {
-    console.log('Panning the Map');
-    mapService.panTo(35.6895, 139.6917);
+function onPanTo(ev) {
+    ev.preventDefault()
+    let inputEl = document.querySelector('.location-input').value
+    mapService.getCordsByCity(inputEl)
+        .then(res => {
+            const { lat, lng } = res['results'][0]['geometry']['location']
+            mapService.panTo(lat, lng);
+        })
+        // console.log('Panning the Map');
+}
+
+function onDeleteLoc(ev) {
+    ev.preventDefault()
 }
